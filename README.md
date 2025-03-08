@@ -22,6 +22,9 @@ python process.py <project_path> --verbose
 ```
 Processes project files and generates detailed insights.
 
+python directory.py "C:/Users/sidha/projects/project-intelligence" --java
+python process.py "C:/Users/sidha/projects/project-intelligence" --import --java
+
 ## Installation
 
 ```bash

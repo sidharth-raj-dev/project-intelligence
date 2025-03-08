@@ -3,7 +3,7 @@ import json
 import pathspec
 import sys
 
-def read_project_repo(directory_path):
+def read_project_repo(directory_path, language="python"):
     # Default patterns to ignore
     default_ignore_patterns = [
         '.git',
@@ -67,39 +67,31 @@ def print_directory_structure(structure, indent=0, last=False):
     for i, (name, item) in enumerate(structure.items()):
         if isinstance(item, dict):
             if 'directory_path' in item:
-                print(f"{' ' * indent}{prefix}{name}")
-                result.append(f"{' ' * indent}{prefix}{name}")
+                line = f"{' ' * indent}{prefix}{name}"
+                print(line)
+                result.append(line)
             else:
-                print(f"{' ' * indent}{prefix}{name}/")
-                result.append(f"{' ' * indent}{prefix}{name}/")
-                result.append(print_directory_structure(item, indent + 4, i == len(structure) - 1))
-                print_directory_structure(item, indent + 4, i == len(structure) - 1)
+                line = f"{' ' * indent}{prefix}{name}/"
+                print(line)
+                result.append(line)
+                substructure = print_directory_structure(item, indent + 4, i == len(structure) - 1)
+                result.append(substructure)
     return "\n".join(result)
 
-def directory(directory_path):
-    repo_structure = read_project_repo(directory_path)
+def directory(directory_path, language="python"):
+    repo_structure = read_project_repo(directory_path, language)
     result = print_directory_structure(repo_structure)
     with open("./content/repo_structure.txt", "w", encoding='utf-8') as f:
         f.write(result)
     return repo_structure
 
 if __name__ == "__main__":
+    # The language flag is still used by the processing script,
+    # but the directory function now builds a holistic file structure.
+    language = "java" if "--java" in sys.argv else "python"
     if len(sys.argv) > 1:
-        path = sys.argv[1]
-        print(f"Path received from command line: {path}")
-        directory(path)
+        path_arg = sys.argv[1]
+        print(f"Path received from command line: {path_arg}")
+        directory(path_arg, language)
     else:
         print("No path provided.")
-
-# Example usage
-# directory_path = "C:/Users/sidha/agents"
-# gitignore_path = "C:/Users/sidha/agents/.gitignore"
-
-# repo_structure = read_project_repo(directory_path, gitignore_path)
-# result = print_directory_structure(repo_structure)
-
-# with open("repo_structure.txt", "w") as f:
-#     f.write(result)
-
-# from command line
-# python directory.py C:/Users/sidha/agents

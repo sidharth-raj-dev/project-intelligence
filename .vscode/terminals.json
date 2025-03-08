@@ -2,10 +2,17 @@
   "autorun": false,
   "terminals": [
     {
-      "name": "read directory structure",
+      "name": "analyze code project python",
       "commands": [
         "python directory.py \"C:/Users/sidha/projects/project-intelligence\"",
-        "python process.py \"C:/Users/sidha/projects/project-intelligence\" --verbose"
+        "python process.py \"C:/Users/sidha/projects/project-intelligence\" --import"
+      ]
+    },
+    {
+      "name": "analyze code project java",
+      "commands": [
+        "python directory.py \"C:/Users/sidha/projects/aem-project-archetype-develop\" --java",
+        "python process.py \"C:/Users/sidha/projects/aem-project-archetype-develop\" --verbose --java"
       ]
     }
   ]
