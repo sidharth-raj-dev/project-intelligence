@@ -1,0 +1,12 @@
+{
+  "autorun": false,
+  "terminals": [
+    {
+      "name": "read directory structure",
+      "commands": [
+        "python directory.py \"C:/Users/sidha/projects/project-intelligence\"",
+        "python process.py \"C:/Users/sidha/projects/project-intelligence\" --verbose"
+      ]
+    }
+  ]
+}
